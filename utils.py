@@ -18,20 +18,20 @@
 '''
 	Shared utilities classes
 '''
-
+from os.path import join
 from pathlib import Path
 from re import split
 from time import strftime
 import numpy as np
-import torch
+
 
 class Logger(object):
 	'''
 	This class records text in a logfile
 	'''
 
-	def __init__(self, name):
-		self.name = name + strftime('%Y%m%d%H%M%S')+ '.log'
+	def __init__(self, name,path='./'):
+		self.name = Path(join(path, name + strftime('%Y%m%d%H%M%S'))).with_suffix('.log')
 		self.file = None
 
 	def __enter__(self):
@@ -142,16 +142,7 @@ def ensure_we_can_save(checkpoint_file_name):
 			checkpoint_path_bak.unlink()
 		checkpoint_path.rename(checkpoint_path_bak)
 
-def get_device(notify=lambda device: print(f'Using device = {device}')):
-	'''
-	Use  CUDA if available
 
-	Parameters:
-	    notify      Used to notify user which device will be used
-	'''
-	torch.set_default_device(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
-	notify(torch.get_default_device())
-	return torch.get_default_device()
 
 def get_moving_average(xs, ys, window_size=11):
 	'''
@@ -191,5 +182,7 @@ def sort_labels(ax):
 	return sorted_handles, sorted_labels
 
 if __name__ == '__main__':
-	for colour in generate_xkcd_colours():
-		print(colour)
+	with Logger('bar',path='./') as logger:
+		for colour in generate_xkcd_colours():
+			logger.log(colour)
+
