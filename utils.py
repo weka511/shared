@@ -90,6 +90,13 @@ def user_has_requested_stop(stopfile='stop'):
 		stop_path.unlink()
 	return stopfile_detected
 
+def get_file_path(file_name):
+	'''
+	Get path name of supplied file name. We need this because utils normally sits in a sub folder.
+	'''
+	script_location = Path(__file__).resolve()
+	script_directory = script_location.parent
+	return script_directory / file_name
 
 def generate_xkcd_colours(file_name='bgr.txt', filter=lambda R, G, B: True):
 	'''
@@ -101,7 +108,7 @@ def generate_xkcd_colours(file_name='bgr.txt', filter=lambda R, G, B: True):
 				  survey) come first.
 		filter    Allows us to exclude some colours based on RGB values
 	'''
-	with open(file_name) as colours:
+	with open(get_file_path(file_name)) as colours:
 		for row in colours:
 			parts = split(r'\s+#', row.strip())
 			if len(parts) > 1:
