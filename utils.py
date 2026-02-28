@@ -29,10 +29,15 @@ class Logger(object):
 	'''
 	This class records text in a logfile
 	'''
+	DEBUG = 0
+	INFO = DEBUG + 1
+	WARNING = INFO + 1
+	ERROR = WARNING + 1
 
-	def __init__(self, name,path='./'):
+	def __init__(self, name,path='./',level=INFO):
 		self.name = Path(join(path, name + strftime('%Y%m%d%H%M%S'))).with_suffix('.log')
 		self.file = None
+		self.level = level
 
 	def __enter__(self):
 		self.file = open(self.name, 'w')
@@ -42,14 +47,16 @@ class Logger(object):
 		if self.file != None:
 			self.file.close()
 
-	def log(self, line):
+	def log(self, line,level=INFO):
 		'''
 		Output one line of text to console and file, flushing as we go
 
 		Parameters:
 		    line     A string to be logged
+			level    Controls whether line is printed in colsole
 		'''
-		print(line, flush=True)
+		if level >= self.level:
+			print(line, flush=True)
 		self.file.write(line + '\n')
 		self.file.flush()
 
@@ -93,6 +100,13 @@ def user_has_requested_stop(stopfile='stop'):
 def get_file_path(file_name):
 	'''
 	Get path name of supplied file name. We need this because utils normally sits in a sub folder.
+
+	Parameters:
+	    file_name   A file name, relative to the current directory
+
+	Returns:
+	    Full path name of this file
+
 	'''
 	script_location = Path(__file__).resolve()
 	script_directory = script_location.parent
