@@ -202,6 +202,18 @@ def sort_labels(ax):
 	sorted_handles = [handle for label, handle in sorted_pairs]
 	return sorted_handles, sorted_labels
 
+def get_bins(bins):
+	'''
+	Used to validate a parameter representing bin_edges
+	'''
+	try:
+		return int(bins)
+	except ValueError:
+		if bins in ['auto','fd','doane','scott','stone','rice','sturges','sqrt']:
+			return bins
+		else:
+			raise
+
 if __name__ == '__main__':
 	with Logger('bar',path='./') as logger:
 		for colour in generate_xkcd_colours():
