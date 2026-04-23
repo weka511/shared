@@ -17,7 +17,20 @@
 
 '''
     Shared utilities and classes
-        Logger
+        Classes
+            Logger
+            Splitter
+        utility functions
+            get_seed
+            create_xkcd_colours
+            ensure_we_can_save
+            generate_xkcd_colours
+            get_bins
+            get_file_path
+            get_moving_average
+            get_seed
+            sort_labels
+            user_has_requested_stop
 '''
 from os.path import join
 from pathlib import Path
