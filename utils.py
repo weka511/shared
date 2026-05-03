@@ -48,10 +48,24 @@ class Logger(object):
     WARNING = INFO + 1
     ERROR = WARNING + 1
 
+    Registry = {}
+    
+    @staticmethod
+    def get_instance(name='--'):
+        '''
+        Locate named logger
+	'''
+        if name == '--':
+            for logger in Logger.Registry.values():
+                return logger
+        else:
+            return Logger.Registry[name]
+    
     def __init__(self, name,path='./',level=INFO):
         self.name = Path(join(path, name + strftime('%Y%m%d%H%M%S'))).with_suffix('.log')
         self.file = None
         self.level = level
+        Logger.Registry[name] = self
 
     def __enter__(self):
         self.file = open(self.name, 'w')
@@ -261,5 +275,5 @@ class Splitter:
 if __name__ == '__main__':
     with Logger('bar',path='./') as logger:
         for colour in generate_xkcd_colours():
-            logger.log(colour)
+            Logger.get_instance().log(colour)
 
