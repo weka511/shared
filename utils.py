@@ -50,6 +50,13 @@ class Logger(object):
 
     Registry = {}
     
+    Level = {
+        DEBUG :'DEBUG',
+        INFO :'INFO',
+        WARNING : 'WARNING',
+        ERROR : 'ERROR'
+    }
+    
     @staticmethod
     def get_instance(name='--'):
         '''
@@ -75,14 +82,15 @@ class Logger(object):
         if self.file != None:
             self.file.close()
 
-    def log(self, line,level=INFO):
+    def log(self, object,level=INFO):
         '''
         Output one line of text to console and file, flushing as we go
 
         Parameters:
-            line     A string to be logged
-        	level    Controls whether line is printed in colsole
+            object   An object to be logged
+            level    Controls whether line is printed in colsole
         '''
+        line = f'{Logger.Level[level]}: {object}'
         if level >= self.level:
             print(line, flush=True)
         self.file.write(line + '\n')
@@ -276,4 +284,3 @@ if __name__ == '__main__':
     with Logger('bar',path='./') as logger:
         for colour in generate_xkcd_colours():
             Logger.get_instance().log(colour)
-
