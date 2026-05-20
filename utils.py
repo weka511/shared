@@ -90,7 +90,7 @@ class Logger(object):
             object   An object to be logged
             level    Controls whether line is printed in colsole
         '''
-        line = f'{Logger.Level[level]}: {object}'
+        line = f'{Logger.Level[level]}: {str(object)}'
         if level >= self.level:
             print(line, flush=True)
         self.file.write(line + '\n')
