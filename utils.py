@@ -73,11 +73,19 @@ class Logger(object):
     @staticmethod
     def get_line():
         '''
-        Establish linke number
+        Establish line number
 	'''
         return currentframe().f_back.f_lineno    
     
     def __init__(self, name,path='./',level=INFO):
+        '''
+        Initialize Logger
+        
+        Parameters:
+            name
+            path
+            level
+	'''
         self.name = Path(join(path, name + strftime('%Y%m%d%H%M%S'))).with_suffix('.log')
         self.file = None
         self.level = level
