@@ -32,6 +32,8 @@
             sort_labels
             user_has_requested_stop
 '''
+
+from inspect import currentframe
 from os.path import join
 from pathlib import Path
 from re import split
@@ -67,6 +69,13 @@ class Logger(object):
                 return logger
         else:
             return Logger.Registry[name]
+        
+    @staticmethod
+    def get_line():
+        '''
+        Establish linke number
+	'''
+        return currentframe().f_back.f_lineno    
     
     def __init__(self, name,path='./',level=INFO):
         self.name = Path(join(path, name + strftime('%Y%m%d%H%M%S'))).with_suffix('.log')
@@ -283,4 +292,4 @@ class Splitter:
 if __name__ == '__main__':
     with Logger('bar',path='./') as logger:
         for colour in generate_xkcd_colours():
-            Logger.get_instance().log(colour)
+            Logger.get_instance().log(f'{Logger.get_line()} {colour}')
