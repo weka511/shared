@@ -19,11 +19,11 @@
 This module is responsible for instantiating an integrator
 '''
 
-from adams import Corrector, Predictor
-from rki import ImplicitRungeKutta,ImplicitRungeKutta4,ImplicitRungeKutta2,NaiveSolver
-from rk import Rk4, Nystrom
-from euler import Euler
-from verlet import VelocityVerlet
+from shared.adams import Corrector, Predictor
+from shared.rki import ImplicitRungeKutta,ImplicitRungeKutta4,ImplicitRungeKutta2,NaiveSolver
+from shared.rk import Rk4, Nystrom
+from shared.euler import Euler
+from shared.verlet import VelocityVerlet
 
 __version__ = '1.0'
 __author__ = 'Simon Crase'
