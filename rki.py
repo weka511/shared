@@ -69,7 +69,11 @@ class ImplicitRungeKutta:
            c               The c vector from the Butcher tableau. This is included for completeness,
                            but it is not used, as dx is independent of time.
         '''
-        super().__init__(dx, order, a,b,c)
+        self.dx = dx
+        self.order = order
+        self.a = a
+        self.b = b
+        self.c = c
         self.s = len(b)
         self.solver = solver
         
@@ -95,6 +99,9 @@ class ImplicitRungeKutta:
            x    Current value of dependent variable
         '''
         return self.get_next(x,h,self.solver.get_k(h,x))   
+    
+    def get_next(self,x,h,k):    
+        return (x + h*np.inner(self.b,k.T))     
   
 
 class ImplicitRungeKutta2(ImplicitRungeKutta):
