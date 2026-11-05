@@ -32,7 +32,7 @@ from time import time
 from matplotlib.pyplot import figure, show
 from matplotlib import rcParams
 import numpy as np
-from rk import RungeKutta
+from shared.rk import RungeKutta
 
 __version__ = '1.1'
 __author__ = 'Simon Crase'
