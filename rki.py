@@ -32,13 +32,13 @@ from time import time
 from matplotlib.pyplot import figure, show
 from matplotlib import rcParams
 import numpy as np
-from shared.rk import RungeKutta
+#from shared.rk import RungeKutta
 
 __version__ = '1.1'
 __author__ = 'Simon Crase'
 
 
-class ImplicitRungeKutta(RungeKutta):
+class ImplicitRungeKutta:
     '''
     Parent class for Implicit Runge-Kutta integrators
     
@@ -241,28 +241,28 @@ def run_once(ax,rk,nn = 100):
     except ImplicitRungeKutta.Failed as e:
         print(f'Exception {e}')
     
-def main():
-    args = parse_args()
-    rcParams['text.usetex'] = True
-    start  = time()    
-    fig = figure(figsize=(12, 12))
-    fig.suptitle(Path(__file__).stem)
-    run_once(ax=fig.add_subplot(1,2,1,adjustable='box',aspect=1.0),
-             rk=ImplicitRungeKutta2(lambda y: [y[1], -y[0]]),
-             nn=150)
-    run_once(ax=fig.add_subplot(1,2,2,adjustable='box',aspect=1.0),
-             rk=ImplicitRungeKutta4(lambda y: [y[1], -y[0]]),
-             nn=50)    
+#def main():
+    #args = parse_args()
+    #rcParams['text.usetex'] = True
+    #start  = time()    
+    #fig = figure(figsize=(12, 12))
+    #fig.suptitle(Path(__file__).stem)
+    #run_once(ax=fig.add_subplot(1,2,1,adjustable='box',aspect=1.0),
+             #rk=ImplicitRungeKutta2(lambda y: [y[1], -y[0]]),
+             #nn=150)
+    #run_once(ax=fig.add_subplot(1,2,2,adjustable='box',aspect=1.0),
+             #rk=ImplicitRungeKutta4(lambda y: [y[1], -y[0]]),
+             #nn=50)    
     
-    fig.tight_layout(h_pad=2)
-    fig.savefig(Path(args.figs)/Path(__file__).stem)    
-    elapsed = time() - start
-    minutes = int(elapsed/60)
-    seconds = elapsed - 60*minutes
-    print (f'Elapsed Time {minutes} m {seconds:.2f} s')
+    #fig.tight_layout(h_pad=2)
+    #fig.savefig(Path(args.figs)/Path(__file__).stem)    
+    #elapsed = time() - start
+    #minutes = int(elapsed/60)
+    #seconds = elapsed - 60*minutes
+    #print (f'Elapsed Time {minutes} m {seconds:.2f} s')
     
-    if args.show:
-        show()
+    #if args.show:
+        #show()
 
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+    #main()

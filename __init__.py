@@ -16,5 +16,8 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 '''
-	Allow absolut imports for shared utilities classes
+	Allow absolute imports for shared utilities classes
 '''
+
+__version__ = '1.0'
+__author__ = 'Simon Crase'
