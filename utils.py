@@ -38,8 +38,11 @@ from os.path import join
 from pathlib import Path
 from re import split
 from time import strftime
+from warnings import deprecated
 import numpy as np
 from sklearn.model_selection import train_test_split
+
+@deprecated('Issue #11. Use pandas instead')
 
 class Logger(object):
     '''
